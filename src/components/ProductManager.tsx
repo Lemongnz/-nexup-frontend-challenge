@@ -22,34 +22,48 @@ export const ProductManager: React.FC = () => {
     return product.category === selectedCategory;
   });
 
-  if (loading) {
-    return (
-      <div className="product-manager__loading">Cargando productos...</div>
-    );
-  }
+  const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="product-manager__loading">Cargando productos...</div>
+      );
+    }
 
-  if (error) {
+    if (error) {
+      return (
+        <div className="product-manager__error">
+          <p>Error: {error}</p>
+          <button
+            type="button"
+            onClick={retry}
+            className="product-manager__retry-button"
+          >
+            Reintentar
+          </button>
+        </div>
+      );
+    }
+
     return (
-      <div className="product-manager__error">
-        <p>Error: {error}</p>
-        <button
-          type="button"
-          onClick={retry}
-          className="product-manager__retry-button"
-        >
-          Reintentar
-        </button>
-      </div>
+      <>
+        <CategoryFilter
+          currentCategory={selectedCategory}
+          onCategoryChange={handleCategoryChange}
+        />
+        <ProductList productList={filteredProducts} />
+      </>
     );
-  }
+  };
 
   return (
-    <div>
-      <CategoryFilter
-        currentCategory={selectedCategory}
-        onCategoryChange={handleCategoryChange}
-      />
-      <ProductList productList={filteredProducts} />
+    <div className="container product-manager__container">
+      <header className="product-manager__header">
+        <h1 className="product-manager__title">Nexup Challenge</h1>
+        <p className="product-manager__subtitle">
+          Listado de productos premium
+        </p>
+      </header>
+      {renderContent()}
     </div>
   );
 };
