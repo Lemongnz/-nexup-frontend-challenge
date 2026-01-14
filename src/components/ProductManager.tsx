@@ -4,8 +4,10 @@ import { CategoryFilter } from './CategoryFilter';
 import { useProducts } from '../hooks/useProducts';
 import { CategoryFilterOption } from '../models/types';
 
+import './ProductManager.css';
+
 export const ProductManager: React.FC = () => {
-  const { products } = useProducts();
+  const { products, loading, error, retry } = useProducts();
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryFilterOption>('All');
 
@@ -19,6 +21,27 @@ export const ProductManager: React.FC = () => {
     }
     return product.category === selectedCategory;
   });
+
+  if (loading) {
+    return (
+      <div className="product-manager__loading">Cargando productos...</div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="product-manager__error">
+        <p>Error: {error}</p>
+        <button
+          type="button"
+          onClick={retry}
+          className="product-manager__retry-button"
+        >
+          Reintentar
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div>

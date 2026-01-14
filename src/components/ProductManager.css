@@ -1,0 +1,28 @@
+.product-manager__loading {
+  padding: 20px;
+  text-align: center;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.product-manager__error {
+  padding: 20px;
+  text-align: center;
+  color: #e74c3c;
+}
+
+.product-manager__retry-button {
+  padding: 8px 16px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+
+.product-manager__retry-button:hover {
+  background-color: #2980b9;
+}
